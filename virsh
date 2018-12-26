@@ -1,0 +1,55 @@
+1、创建虚拟机
+virsh define  damo.xml          //创建的虚拟机不是活动的
+virsh create  damo.xml          //创建的虚拟机是活动的，但是虚拟机关机之后会消失
+注意：damo.xml是虚拟机的配置文件，一般位置/etc/libvirt/qemu/下，也可自己编辑配置文件
+
+2、查看运行的虚拟机
+
+virsh list
+3、查看所有的虚拟机（关闭和运行的虚拟机）
+
+virsh list --all
+4、启动虚拟机
+
+virsh  start  虚拟机name
+5、关闭虚拟机
+
+virsh  shutdown  虚拟机name     //正常关闭虚拟机
+virsh  destroy  虚拟机name      //强制关闭虚拟机
+6、挂起/暂停虚拟机
+
+virsh  suspend  虚拟机name
+7、恢复挂起/暂停的虚拟机
+
+virsh resume  虚拟机name
+8、查看虚拟机的vnc端口， 然后就可以通过vnc登录来完成虚拟机的安装
+
+virsh  vncdisplay  虚拟机name
+9、查看虚拟机IP步骤，若不能查看则可以vnc登录系统查看
+
+virsh --list                            //查看有哪些服务器
+
+virsh dumpxml 虚拟机名称                 //查看服务器对应的mac地址
+
+arp -a                                 //查看对应的mac地址对应的ip
+10、显示虚拟机的基本信息
+
+virsh dominfo 虚拟机name
+11、显示虚拟机的当前配置文件
+
+virsh dumpxml 虚拟机name
+12、给不活动的虚拟机设置内存大小
+
+virsh setmem 虚拟机name 512000  
+13、给不活动虚拟机设置cpu个数
+
+virsh setvcpus 虚拟机name 4
+14、删除虚拟机
+
+virsh undefine 虚拟机name  //同时删除virsh列表里面的name与当前配置文件，删除的虚拟机必须是不活动的
+ 15、克隆虚拟机
+
+virt-clone -o node1 -n node2 -f /home/kvm/images/node2.img      //node1是需要克隆的虚拟机，node2是克隆之后的虚拟机name，/home/kvm/images/是克隆的镜像的存储位置，node5.img 是镜像的名称与格式
+ 16、设置随宿主机开机自启动
+
+virsh autostart 虚拟机名    
